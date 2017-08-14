@@ -21,7 +21,7 @@ else {
 
 # remove fukku service
 
-if(get-service| ? { $_.Name -eq "DynamicPowerShellApi" } )
+if(get-service| select-object { $_.Name -eq "DynamicPowerShellApi" } )
 {
     & C:\fukku\DynamicPowerShellApi.Host.exe --uninstall-service 
 }
@@ -44,5 +44,9 @@ cp c:\fukku\repo\ScriptRepository c:\fukku -Recurse -Force -Verbose
 & C:\fukku\DynamicPowerShellApi.Host.exe --install-service --service-user ".\fukkuuser" --service-password $randompass
 
 # test it's running
+
+$state = Get-Service "DynamicPowerShellApi" | select-object -expand State 
+
+Write-host "Current service state : $state"
 
 # happy fun times to slack
