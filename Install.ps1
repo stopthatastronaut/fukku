@@ -43,7 +43,7 @@ Copy-item c:\fukku\repo\ScriptRepository c:\fukku -Recurse -Force -Verbose
 # set the API's IP address
 
 $dynconfig = [xml](gc C:\fukku\DynamicPowerShellApi.Host.exe.config)
-$localip = irm http://canhazip.net/
+$localip = irm http://canhazip.com/
 
 $dynconfig.configuration.WebApiConfiguration.Attributes['HostAddress'].'#text' = "http://$localip`:9000"
 $dynconfig.Save("C:\fukku\DynamicPowerShellApi.Host.exe.config")
