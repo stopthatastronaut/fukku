@@ -18,6 +18,11 @@ else {
     Get-LocalUser fukkuuser | Set-LocalUser -Password ($randompass | ConvertTo-SecureString -AsPlainText -force) -verbose 
 }
 
+if(-not (Get-LocalGroupMember  -Group Administrators | ? {$_.Name -like "*\fukkuuser"}))
+{
+    Add-LocalGroupMember -Group Administrators -Member fukkuuser  -Verbose
+}   # not great, but at least the password is highly random and recycled regularly
+
 # remove fukku service
 
 if(get-service | Where-Object { $_.Name -eq "DynamicPowerShellApi" } )
