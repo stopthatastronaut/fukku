@@ -9,10 +9,9 @@ $randompass = (-Join (((65..90) | % { [char]$_ }) + (0..9) + "!_$%-+".ToCharArra
 
 # create/update user account
 
-if(-not (Get-LocalUser fukkuuser))
+if(-not (Get-LocalUser | ? { $_.Name -eq "fukkuuser" }))
 {
     New-LocalUser fukkuuser -Password ($randompass | ConvertTo-SecureString -AsPlainText -force) -PasswordNeverExpires -Description "user for PowerShell.REST.API" -verbose 
-
 }
 else {
     # change password here
